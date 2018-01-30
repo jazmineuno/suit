@@ -22,6 +22,7 @@ function suit.new(theme)
 		Label = require(BASE.."label"),
 		Checkbox = require(BASE.."checkbox"),
 		Input = require(BASE.."input"),
+		Password = require(BASE.."password"),
 		Slider = require(BASE.."slider"),
 
 		layout = require(BASE.."layout").new(),

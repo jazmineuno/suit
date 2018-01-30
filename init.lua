@@ -48,6 +48,7 @@ return setmetatable({
 	Label = function(...) return instance:Label(...) end,
 	Checkbox = function(...) return instance:Checkbox(...) end,
 	Input = function(...) return instance:Input(...) end,
+	Password = function(...) return instance:Password(...) end,
 	Slider = function(...) return instance:Slider(...) end,
 
 	-- layout

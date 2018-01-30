@@ -149,4 +149,49 @@ function theme.Input(input, opt, x,y,w,h)
 	love.graphics.setScissor(sx,sy,sw,sh)
 end
 
+function theme.Password(password, opt, x,y,w,h)
+        local utf8 = require 'utf8'
+        theme.drawBox(x,y,w,h, (opt.color and opt.color.normal) or theme.color.normal, opt.cornerRadius)
+        x = x + 3
+        w = w - 6
+
+        local th = opt.font:getHeight()
+
+        -- set scissors
+        local sx, sy, sw, sh = love.graphics.getScissor()
+        love.graphics.setScissor(x-1,y,w+2,h)
+        x = x - password.text_draw_offset
+
+        -- text
+        love.graphics.setColor((opt.color and opt.color.normal and opt.color.normal.fg) or theme.color.normal.fg)
+        love.graphics.setFont(opt.font)
+        love.graphics.print(string.rep("#",utf8.len(password.text)), x, y+(h-th)/2)
+
+        -- candidate text
+        local tw = opt.font:getWidth(password.text)
+        local ctw = opt.font:getWidth(password.candidate_text.text)
+        love.graphics.setColor((opt.color and opt.color.normal and opt.color.normal.fg) or theme.color.normal.fg)
+        love.graphics.print(string.rep("#",utf8.len(password.candidate_text.text)), x + tw, y+(h-th)/2)
+
+        -- candidate text rectangle box
+        love.graphics.rectangle("line", x + tw, y+(h-th)/2, ctw, th)
+
+        -- cursor
+        if opt.hasKeyboardFocus and (love.timer.getTime() % 1) > .5 then
+                local ct = password.candidate_text;
+                local ss = ct.text:sub(1, utf8.offset(ct.text, ct.start))
+                local ws = opt.font:getWidth(ss)
+                if ct.start == 0 then ws = 0 end
+
+                love.graphics.setLineWidth(1)
+                love.graphics.setLineStyle('rough')
+                love.graphics.line(x + opt.cursor_pos + ws, y + (h-th)/2,
+                                   x + opt.cursor_pos + ws, y + (h+th)/2)
+        end
+
+        -- reset scissor
+        love.graphics.setScissor(sx,sy,sw,sh)
+end
+
+
 return theme
