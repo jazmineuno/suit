@@ -20,9 +20,9 @@ function love.update(dt)
 
 	-- put an input widget at the layout origin, with a cell size of 200 by 30 pixels
 	suit.Label("Email Address", {align = "left"}, suit.layout:row(300,30))
-	suit.Input(username, suit.layout:row(300,30))
+	suit.Input(username, suit.layout:row())
 	suit.Label("Password", {align = "left"}, suit.layout:row())
-	suit.Password(password, suit.layout:row(300,30))
+	suit.Password(password, suit.layout:row())
 	suit.layout:row()
 
 	-- put a label that displays the text below the first cell
